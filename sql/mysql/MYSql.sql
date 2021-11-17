@@ -6,15 +6,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema db_crm
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `db_crm` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `db_crm` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Paises`
+-- Table `db_crm`.`Paises`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Paises` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`Paises` (
   `idPais` SMALLINT NOT NULL,
   `nombre` VARCHAR(50) NULL,
   PRIMARY KEY (`idPais`),
@@ -23,9 +23,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Empleados`
+-- Table `db_crm`.`Empleados`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Empleados` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`Empleados` (
   `idEmpleado` INT NOT NULL,
   `nombre` VARCHAR(30) NOT NULL,
   `apellido1` VARCHAR(30) NOT NULL,
@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Empleados` (
   INDEX `fk_Empleados_Paises_idx` (`idPais` ASC),
   CONSTRAINT `fk_Empleados_Paises`
     FOREIGN KEY (`idPais`)
-    REFERENCES `mydb`.`Paises` (`idPais`)
+    REFERENCES `db_crm`.`Paises` (`idPais`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Sucursales`
+-- Table `db_crm`.`Sucursales`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Sucursales` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`Sucursales` (
   `idSucursal` SMALLINT NOT NULL,
   `nombre` VARCHAR(50) NOT NULL,
   `idPais` SMALLINT NULL,
@@ -57,16 +57,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Sucursales` (
   INDEX `fk_Sucursales_Paises1_idx` (`idPais` ASC),
   CONSTRAINT `fk_Sucursales_Paises`
     FOREIGN KEY (`idPais`)
-    REFERENCES `mydb`.`Paises` (`idPais`)
+    REFERENCES `db_crm`.`Paises` (`idPais`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`EstadosTiquete`
+-- Table `db_crm`.`EstadosTiquete`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`EstadosTiquete` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`EstadosTiquete` (
   `idEstadoTiquete` SMALLINT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idEstadoTiquete`),
@@ -75,9 +75,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`EstadosSolicitud`
+-- Table `db_crm`.`EstadosSolicitud`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`EstadosSolicitud` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`EstadosSolicitud` (
   `idEstadoSolicitud` SMALLINT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idEstadoSolicitud`),
@@ -86,9 +86,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`TiposTiquete`
+-- Table `db_crm`.`TiposTiquete`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TiposTiquete` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`TiposTiquete` (
   `idTipoTiquete` SMALLINT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idTipoTiquete`),
@@ -97,9 +97,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`TiquetesSoporte`
+-- Table `db_crm`.`TiquetesSoporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TiquetesSoporte` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`TiquetesSoporte` (
   `idTiqueteSoporte` BIGINT NOT NULL AUTO_INCREMENT,
   `fechaApertura` DATETIME NOT NULL,
   `idTipoTiquete` SMALLINT NOT NULL,
@@ -112,26 +112,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`TiquetesSoporte` (
   INDEX `fk_TiquetesSoporte_TiposTiquete1_idx` (`idTipoTiquete` ASC),
   CONSTRAINT `fk_TiquetesSoporte_Empleados1`
     FOREIGN KEY (`idEmpleado`)
-    REFERENCES `mydb`.`Empleados` (`idEmpleado`)
+    REFERENCES `db_crm`.`Empleados` (`idEmpleado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TiquetesSoporte_EstadosTiquete1`
     FOREIGN KEY (`idEstadoTiquete`)
-    REFERENCES `mydb`.`EstadosTiquete` (`idEstadoTiquete`)
+    REFERENCES `db_crm`.`EstadosTiquete` (`idEstadoTiquete`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TiquetesSoporte_TiposTiquete1`
     FOREIGN KEY (`idTipoTiquete`)
-    REFERENCES `mydb`.`TiposTiquete` (`idTipoTiquete`)
+    REFERENCES `db_crm`.`TiposTiquete` (`idTipoTiquete`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`MediosRecepcion`
+-- Table `db_crm`.`MediosRecepcion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`MediosRecepcion` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`MediosRecepcion` (
   `idMedioRecepcion` SMALLINT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idMedioRecepcion`),
@@ -140,9 +140,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Comentarios`
+-- Table `db_crm`.`Comentarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Comentarios` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`Comentarios` (
   `idComentario` BIGINT NOT NULL AUTO_INCREMENT,
   `idTiqueteSoporte` BIGINT NOT NULL,
   `detalle` VARCHAR(2000) NOT NULL,
@@ -155,21 +155,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Comentarios` (
   INDEX `fk_Comentarios_MediosRecepcion1_idx` (`idMedioRecepcion` ASC),
   CONSTRAINT `fk_Comentarios_TiquetesSoporte1`
     FOREIGN KEY (`idTiqueteSoporte`)
-    REFERENCES `mydb`.`TiquetesSoporte` (`idTiqueteSoporte`)
+    REFERENCES `db_crm`.`TiquetesSoporte` (`idTiqueteSoporte`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Comentarios_MediosRecepcion1`
     FOREIGN KEY (`idMedioRecepcion`)
-    REFERENCES `mydb`.`MediosRecepcion` (`idMedioRecepcion`)
+    REFERENCES `db_crm`.`MediosRecepcion` (`idMedioRecepcion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`GradosSeveridad`
+-- Table `db_crm`.`GradosSeveridad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`GradosSeveridad` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`GradosSeveridad` (
   `idGradoSeveridad` SMALLINT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idGradoSeveridad`),
@@ -178,9 +178,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`SolicitudesAmonestacion`
+-- Table `db_crm`.`SolicitudesAmonestacion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`SolicitudesAmonestacion` (
+CREATE TABLE IF NOT EXISTS `db_crm`.`SolicitudesAmonestacion` (
   `idSolicitudAmonestacion` BIGINT NOT NULL AUTO_INCREMENT,
   `idGradoSeveridad` SMALLINT NOT NULL,
   `idEmpleado` INT NOT NULL,
@@ -197,27 +197,27 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SolicitudesAmonestacion` (
   INDEX `fk_SolicitudesAmonestacion_Empleados2_idx` (`idEmpleadoResponsable` ASC),
   CONSTRAINT `fk_SolicitudesAmonestacion_EstadosSolicitud1`
     FOREIGN KEY (`idEstadoSolicitud`)
-    REFERENCES `mydb`.`EstadosSolicitud` (`idEstadoSolicitud`)
+    REFERENCES `db_crm`.`EstadosSolicitud` (`idEstadoSolicitud`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SolicitudesAmonestacion_Comentarios1`
     FOREIGN KEY (`idComentario`)
-    REFERENCES `mydb`.`Comentarios` (`idComentario`)
+    REFERENCES `db_crm`.`Comentarios` (`idComentario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SolicitudesAmonestacion_GradosSeveridad1`
     FOREIGN KEY (`idGradoSeveridad`)
-    REFERENCES `mydb`.`GradosSeveridad` (`idGradoSeveridad`)
+    REFERENCES `db_crm`.`GradosSeveridad` (`idGradoSeveridad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SolicitudesAmonestacion_EmpleadosAmonestado`
     FOREIGN KEY (`idEmpleado`)
-    REFERENCES `mydb`.`Empleados` (`idEmpleado`)
+    REFERENCES `db_crm`.`Empleados` (`idEmpleado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SolicitudesAmonestacion_EmpleadosResponsable`
     FOREIGN KEY (`idEmpleadoResponsable`)
-    REFERENCES `mydb`.`Empleados` (`idEmpleado`)
+    REFERENCES `db_crm`.`Empleados` (`idEmpleado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
